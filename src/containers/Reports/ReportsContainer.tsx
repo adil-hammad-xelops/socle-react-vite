@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchReports } from 'services/apis/reportsApi';
-import type { ApiResponse, Report } from 'types';
-import { Card } from 'components/Card';
-import { useAppSelector } from 'utils/hooks';
+import type { Report } from 'types';
+import { Card } from 'components/ui';
 
 export function ReportsContainer() {
   const { data = [], isLoading, isError } = useQuery({

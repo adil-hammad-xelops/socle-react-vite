@@ -1,0 +1,188 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# UI Component Library
+
+Welcome to the **UI Component Library** documentation! This is a comprehensive, production-ready React + TypeScript component library built with Material-UI.
+
+## 🎯 Overview
+
+This library contains **59 production-ready components** organized into 8 categories:
+
+### 📦 Component Categories
+
+#### Basic Elements (7)
+- **Button** - Multiple variants and sizes
+- **Typography** - Text components with variants
+- **Badge** - Notification badges
+- **Chip** - Tags and labels
+- **Tooltip** - Contextual tooltips
+- **Divider** - Visual separators
+- **Icon** - Material icon wrapper
+
+#### Form Elements (10)
+- **Input** - Text input with validation
+- **TextArea** - Multi-line text input
+- **Select** - Dropdown selection
+- **Checkbox** - Checkbox control
+- **Radio** - Radio button group
+- **Switch** - Toggle switch
+- **Slider** - Range slider
+- **DatePicker** - Date selection
+- **FileUpload** - File upload with preview
+- **SearchField** - Search input
+
+#### Navigation (9)
+- **Navbar** - Top navigation bar
+- **Sidebar** - Side drawer navigation
+- **Tabs** - Tabbed navigation
+- **Breadcrumbs** - Navigation path
+- **Pagination** - Page navigation
+- **Stepper** - Step indicator
+- **Menu** - Context menu
+- **DropdownMenu** - Dropdown menu
+- **BottomNav** - Bottom navigation
+
+#### Feedback (9)
+- **Modal** - Modal dialog
+- **Dialog** - Dialog with actions
+- **Alert** - Alert messages
+- **Toast/Snackbar** - Toast notifications
+- **ProgressBar** - Progress indicator
+- **Spinner** - Loading spinner
+- **Skeleton** - Loading placeholder
+- **EmptyState** - Empty state UI
+
+#### Data Display (8)
+- **Card** - Content card
+- **List** - List component
+- **Table** - Data table with sorting/pagination
+- **Accordion** - Collapsible sections
+- **Timeline** - Event timeline
+- **AvatarGroup** - Grouped avatars
+- **Carousel** - Image carousel
+- **TreeView** - Hierarchical tree
+
+#### Layout & Utility (8)
+- **Container** - Responsive container
+- **Grid** - Grid layout system
+- **Stack** - Flexbox stack
+- **Box** - Generic box container
+- **Spacer** - Spacing utility
+- **Section** - Page section
+- **ScrollArea** - Scrollable area
+- **Paper** - Material paper
+
+#### Visualization (3)
+- **ChartWrapper** - Bar/Line/Pie charts
+- **Gauge** - Gauge meter
+- **CalendarView** - Calendar with events
+
+#### Advanced (5)
+- **CommandPalette** - Command search (Cmd+K)
+- **NotificationCenter** - Notification dropdown
+- **ThemeToggle** - Light/dark theme toggle
+- **LanguageSelector** - Language switcher
+- **UserMenu** - User profile menu
+
+## ✨ Features
+
+### 🎨 Customizable
+- Multiple variants for most components
+- Size options (small, medium, large)
+- Color themes (primary, secondary, success, error, warning)
+- Full theme customization support
+
+### 💪 TypeScript First
+- 100% TypeScript coverage
+- Comprehensive prop types
+- Full IntelliSense support
+- Type-safe APIs
+
+### ♿ Accessible
+- ARIA attributes on all interactive elements
+- Keyboard navigation support
+- Screen reader friendly
+- Focus management
+
+### 📱 Responsive
+- Mobile-first design
+- Breakpoint system (xs, sm, md, lg, xl)
+- Flexible layouts
+- Adaptive components
+
+### 🎯 Production Ready
+- Battle-tested patterns
+- Error handling
+- Performance optimized
+- Clean, maintainable code
+
+## 🚀 Quick Start
+
+### Installation
+
+\`\`\`bash
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-router-dom
+\`\`\`
+
+### Basic Usage
+
+```tsx
+import { Button, Card, Input } from './components/ui';
+
+function MyComponent() {
+  return (
+    <Card title="Hello World">
+      <Input label="Name" placeholder="Enter name" />
+      <Button variant="primary">Submit</Button>
+    </Card>
+  );
+}
+```
+
+### With Theme Provider
+
+```tsx
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { lightTheme } from './components/ui/theme';
+
+function App() {
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
+      <MyComponent />
+    </ThemeProvider>
+  );
+}
+```
+
+## 📚 Documentation
+
+- Browse components in the sidebar
+- Each component has:
+  - Interactive examples
+  - Props documentation
+  - Different variants
+  - Accessibility notes
+
+## 🎨 Theme Toggle
+
+Use the theme switcher in the toolbar to see components in light/dark mode!
+
+## 🔗 Resources
+
+- **GitHub Repository**: [Your Repo Link]
+- **Component Documentation**: See individual component pages
+- **Live Examples**: Check the Canvas tab for each component
+
+## 🤝 Contributing
+
+Want to add a new component or improve existing ones? Check out our contribution guidelines!
+
+---
+
+**Built with ❤️ using React, TypeScript, and Material-UI**
+
+*Happy coding! 🚀*
+

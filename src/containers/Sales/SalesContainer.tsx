@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchSalesSummary } from 'services/apis/salesApi';
-import type { ApiResponse } from 'types';
-import { Card } from 'components/Card';
+import { Card } from 'components/ui';
 
 interface SalesSummary { total: number; month: string }
 
 export function SalesContainer() {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<SalesSummary>({
     queryKey: ['sales', 'summary'],
     queryFn: fetchSalesSummary,
     staleTime: 60_000,
