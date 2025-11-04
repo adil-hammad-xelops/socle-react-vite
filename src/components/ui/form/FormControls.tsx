@@ -209,6 +209,10 @@ export const Select: React.FC<SelectProps> = ({
   fullWidth = true,
   multiple = false,
 }) => {
+  // When using placeholder with label, always shrink the label to prevent overlap
+  const hasValue = multiple ? (Array.isArray(value) && value.length > 0) : value !== '';
+  const shouldShrink = placeholder ? true : (hasValue || undefined);
+
   return (
     <FormControl
       fullWidth={fullWidth}
@@ -216,18 +220,23 @@ export const Select: React.FC<SelectProps> = ({
       required={required}
       disabled={disabled}
     >
-      {label && <InputLabel>{label}</InputLabel>}
+      {label && (
+        <InputLabel shrink={shouldShrink}>
+          {label}
+        </InputLabel>
+      )}
       <MuiSelect
         value={value}
         onChange={onChange}
         label={label}
         multiple={multiple}
         displayEmpty={!!placeholder}
+        notched={shouldShrink}
         inputProps={{ 'aria-label': label || 'select' }}
       >
-        {placeholder && (
+        {placeholder && value === '' && (
           <MenuItem value="" disabled>
-            {placeholder}
+            <em style={{ color: '#999' }}>{placeholder}</em>
           </MenuItem>
         )}
         {options.map((option) => (

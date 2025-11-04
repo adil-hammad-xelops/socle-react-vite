@@ -1,18 +1,44 @@
 import type { Preview } from '@storybook/react';
-import { Provider } from 'react-redux';
-import { store } from '../src/services/store';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from '../src/styles/GlobalStyle';
-import { lightTheme } from '../src/styles/theme';
+import React from 'react';
+import { create } from '@storybook/theming/create';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { lightTheme } from '../src/components/ui/theme';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  },
+// Create custom Storybook theme for docs
+const storybookTheme = create({
+  base: 'light',
+
+  // Brand
+  brandTitle: 'UI Component Library',
+  brandUrl: '/',
+  brandTarget: '_self',
+
+  // Colors
+  colorPrimary: '#2563eb',
+  colorSecondary: '#64748b',
+
+  // UI
+  appBg: '#F5F5F5',
+  appContentBg: '#FFFFFF',
+  appBorderColor: '#E2E8F0',
+  appBorderRadius: 4,
+
+  // Text colors
+  textColor: '#1E293B',
+  textInverseColor: '#FFFFFF',
+  textMutedColor: '#64748b',
+
+  // Toolbar
+  barTextColor: '#64748b',
+  barSelectedColor: '#2563eb',
+  barBg: '#FFFFFF',
+
+  // Form colors
+  inputBg: '#FFFFFF',
+  inputBorder: '#CBD5E1',
+  inputTextColor: '#1E293B',
+  inputBorderRadius: 4,
 });
 
 const preview: Preview = {
@@ -25,14 +51,16 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'light',
+      default: 'gray',
       values: [
         { name: 'light', value: '#FFFFFF' },
+        { name: 'gray', value: '#F5F5F5' },
         { name: 'dark', value: '#1A1A1A' },
       ],
     },
     layout: 'centered',
     docs: {
+      theme: storybookTheme,
       source: {
         state: 'open',
       },
@@ -40,14 +68,14 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={lightTheme}>
-            <GlobalStyle />
+      <MuiThemeProvider theme={lightTheme}>
+        <StyledThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100%' }}>
             <Story />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </Provider>
+          </div>
+        </StyledThemeProvider>
+      </MuiThemeProvider>
     ),
   ],
 };

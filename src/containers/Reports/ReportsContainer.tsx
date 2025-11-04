@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchReports } from 'services/apis/reportsApi';
 import type { Report } from 'types';
 import { Card } from 'components/ui';
+import { ReportsWrapper, ReportsTitle, ReportDetail } from './ReportsContainer.styled';
 
 export function ReportsContainer() {
   const { data = [], isLoading, isError } = useQuery({
@@ -10,18 +11,18 @@ export function ReportsContainer() {
   });
 
   return (
-    <div style={{ display: 'grid', gap: 12 }}>
-      <h2 style={{ margin: 0 }}>Reports</h2>
+    <ReportsWrapper>
+      <ReportsTitle>Reports</ReportsTitle>
       {isLoading && <Card title="Loading">Loading…</Card>}
       {isError && <Card title="Error">Failed to fetch</Card>}
       {data.map((r: Report) => (
         <Card key={r.id} title={r.title}>
-          <div>ID: {r.id}</div>
-          <div>Value: {r.value}</div>
-          <div>Updated: {new Date(r.updatedAt).toLocaleString()}</div>
+          <ReportDetail>ID: {r.id}</ReportDetail>
+          <ReportDetail>Value: {r.value}</ReportDetail>
+          <ReportDetail>Updated: {new Date(r.updatedAt).toLocaleString()}</ReportDetail>
         </Card>
       ))}
-    </div>
+    </ReportsWrapper>
   );
 }
 

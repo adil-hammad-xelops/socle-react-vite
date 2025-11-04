@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchSalesSummary } from 'services/apis/salesApi';
 import { Card } from 'components/ui';
+import { SalesWrapper, SalesTitle, SalesDetail } from './SalesContainer.styled';
 
 interface SalesSummary { total: number; month: string }
 
@@ -12,16 +13,16 @@ export function SalesContainer() {
   });
 
   return (
-    <div style={{ display: 'grid', gap: 12 }}>
-      <h2 style={{ margin: 0 }}>Sales</h2>
+    <SalesWrapper>
+      <SalesTitle>Sales</SalesTitle>
       {isLoading && <Card title="Loading">Loading…</Card>}
       {isError && <Card title="Error">Failed to fetch</Card>}
       {data && (
         <Card title={`Sales - ${data.month}`}>
-          <div>Total: {data.total}</div>
+          <SalesDetail>Total: {data.total}</SalesDetail>
         </Card>
       )}
-    </div>
+    </SalesWrapper>
   );
 }
 

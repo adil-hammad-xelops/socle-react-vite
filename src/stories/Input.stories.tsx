@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
 import { Input } from '../components/ui';
 import { Search } from '@mui/icons-material';
 
@@ -7,6 +8,7 @@ const meta: Meta<typeof Input> = {
   component: Input,
   parameters: {
     layout: 'padded',
+    backgrounds: { default: 'gray' },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -23,6 +25,26 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 type Story = StoryObj<typeof Input>;
+
+// Interactive example with state
+export const Interactive: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <div>
+        <Input
+          label="Type something"
+          placeholder="Enter text..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <div style={{ marginTop: '16px', padding: '8px', background: '#f0f0f0', borderRadius: '4px' }}>
+          <strong>Current Value:</strong> "{value || '(empty)'}"
+        </div>
+      </div>
+    );
+  },
+};
 
 export const Default: Story = {
   args: {
@@ -73,11 +95,13 @@ export const Disabled: Story = {
 };
 
 export const WithStartAdornment: Story = {
-  args: {
-    label: 'Search',
-    placeholder: 'Search...',
-    startAdornment: <Search />,
-  },
+  render: () => (
+    <Input
+      label="Search"
+      placeholder="Search..."
+      startAdornment={<Search />}
+    />
+  ),
 };
 
 export const FullWidth: Story = {

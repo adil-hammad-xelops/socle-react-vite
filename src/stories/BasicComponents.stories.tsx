@@ -1,17 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Typography, Badge, Chip, Tooltip, Divider } from '../components/ui';
-import { Button } from '../components/ui';
-import { Star, Mail, Favorite } from '@mui/icons-material';
+import { Typography } from '../components/ui';
 
 // Typography Stories
-const typographyMeta: Meta<typeof Typography> = {
+const meta: Meta<typeof Typography> = {
   title: 'Basic/Typography',
   component: Typography,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2', 'caption'],
+    },
+  },
 };
 
-export default typographyMeta;
+export default meta;
 
 export const Heading1: StoryObj<typeof Typography> = {
   args: {

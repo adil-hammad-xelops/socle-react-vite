@@ -1,14 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ChartWrapper, Gauge } from '../components/ui';
+import { ChartWrapper } from '../components/ui';
 
-const chartMeta: Meta<typeof ChartWrapper> = {
+const meta: Meta<typeof ChartWrapper> = {
   title: 'Visualization/ChartWrapper',
   component: ChartWrapper,
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    backgrounds: { default: 'gray' },
+  },
   tags: ['autodocs'],
 };
 
-export default chartMeta;
+export default meta;
+type Story = StoryObj<typeof ChartWrapper>;
 
 const sampleData = [
   { label: 'Jan', value: 45, color: '#2563eb' },
@@ -18,7 +22,7 @@ const sampleData = [
   { label: 'May', value: 58, color: '#2563eb' },
 ];
 
-export const BarChart: StoryObj<typeof ChartWrapper> = {
+export const BarChart: Story = {
   args: {
     type: 'bar',
     title: 'Monthly Sales',
@@ -28,7 +32,7 @@ export const BarChart: StoryObj<typeof ChartWrapper> = {
   },
 };
 
-export const LineChart: StoryObj<typeof ChartWrapper> = {
+export const LineChart: Story = {
   args: {
     type: 'line',
     title: 'Trend Analysis',
@@ -38,7 +42,7 @@ export const LineChart: StoryObj<typeof ChartWrapper> = {
   },
 };
 
-export const PieChart: StoryObj<typeof ChartWrapper> = {
+export const PieChart: Story = {
   args: {
     type: 'pie',
     title: 'Market Share',
@@ -48,42 +52,4 @@ export const PieChart: StoryObj<typeof ChartWrapper> = {
   },
 };
 
-// Gauge Stories
-const gaugeMeta: Meta<typeof Gauge> = {
-  title: 'Visualization/Gauge',
-  component: Gauge,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
-};
-
-export const GaugeDefault: StoryObj<typeof Gauge> = {
-  args: {
-    value: 75,
-    max: 100,
-    label: 'Performance',
-    color: 'primary',
-    size: 200,
-    showValue: true,
-  },
-};
-
-export const GaugeSuccess: StoryObj<typeof Gauge> = {
-  args: {
-    value: 85,
-    max: 100,
-    label: 'Health Score',
-    color: 'success',
-    size: 200,
-  },
-};
-
-export const GaugeWarning: StoryObj<typeof Gauge> = {
-  args: {
-    value: 45,
-    max: 100,
-    label: 'Storage Used',
-    color: 'warning',
-    size: 200,
-  },
-};
 

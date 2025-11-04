@@ -4,11 +4,11 @@ import { Meta } from '@storybook/blocks';
 
 # UI Component Library
 
-Welcome to the **UI Component Library** documentation! This is a comprehensive, production-ready React + TypeScript component library built with Material-UI.
+Welcome to the **UI Component Library** documentation! This is a comprehensive, production-ready React + TypeScript component library built with Material-UI and styled-components.
 
 ## 🎯 Overview
 
-This library contains **59 production-ready components** organized into 8 categories:
+This library contains **59+ production-ready components** organized into 8 categories, following a clean three-layer architecture pattern.
 
 ### 📦 Component Categories
 
@@ -88,17 +88,91 @@ This library contains **59 production-ready components** organized into 8 catego
 
 ## ✨ Features
 
-### 🎨 Customizable
+### 🎨 Customizable with styled-components
 - Multiple variants for most components
 - Size options (small, medium, large)
 - Color themes (primary, secondary, success, error, warning)
-- Full theme customization support
+- Full theme customization with MUI + styled-components
+- Separate `.styled.ts` files for easy styling
 
 ### 💪 TypeScript First
 - 100% TypeScript coverage
 - Comprehensive prop types
 - Full IntelliSense support
 - Type-safe APIs
+
+### 🏗️ Clean Architecture
+- **Pages** - Simple routing components (just call containers)
+- **Containers** - Business logic, state, API calls, useEffect
+- **Components** - Pure presentation layer (props-based)
+- Clear separation of concerns
+- Easy to test and maintain
+
+### 🎭 Theming
+- Light/Dark theme support
+- Consistent color palette
+- Material-UI theme integration
+- styled-components theme provider
+- Easy theme customization
+
+## 📚 Getting Started
+
+### Installation
+
+All components are available through the centralized UI exports:
+
+```typescript
+import { Button, Input, Card, Modal } from '../components/ui';
+```
+
+### Basic Usage
+
+```typescript
+import { Button } from '../components/ui';
+
+function MyComponent() {
+  return (
+    <Button variant="primary" onClick={() => alert('Clicked!')}>
+      Click Me
+    </Button>
+  );
+}
+```
+
+### With TypeScript
+
+All components are fully typed:
+
+```typescript
+import { Button, ButtonProps } from '../components/ui';
+
+const MyButton: React.FC<ButtonProps> = (props) => {
+  return <Button {...props} />;
+};
+```
+
+### Architecture Pattern
+
+When building new features, follow this pattern:
+
+```typescript
+// 1. Page (just routing)
+export function MyPage() {
+  return <MyContainer />;
+}
+
+// 2. Container (logic, state, API)
+export function MyContainer() {
+  const [data, setData] = useState([]);
+  useEffect(() => fetchData().then(setData), []);
+  return <MyView data={data} />;
+}
+
+// 3. View (pure UI)
+export function MyView({ data }) {
+  return <div>{data.map(item => <Card key={item.id} />)}</div>;
+}
+```
 
 ### ♿ Accessible
 - ARIA attributes on all interactive elements
