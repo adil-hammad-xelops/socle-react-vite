@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "services/*": ["./services/*"],
+      "components/*": ["./components/*"],
+      "containers/*": ["./containers/*"],
+      "pages/*": ["./pages/*"],
+      "routes/*": ["./routes/*"],
+      "types/*": ["./types/*"],
+      "utils/*": ["./utils/*"],
+      "hooks/*": ["./hooks/*"],
+      "examples/*": ["./examples/*"],
+      "theme/*": ["./theme/*"]
+    },
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "ESNext"
+  },
+  "include": [
+    "src/**/*",
+    ".storybook/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
+

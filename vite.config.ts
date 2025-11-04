@@ -18,6 +18,7 @@ export default defineConfig({
       'utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
       'hooks': fileURLToPath(new URL('./src/hooks', import.meta.url)),
       'examples': fileURLToPath(new URL('./src/examples', import.meta.url)),
+      'theme': fileURLToPath(new URL('./src/theme', import.meta.url)),
     },
   },
 })

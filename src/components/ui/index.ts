@@ -1,5 +1,3 @@
-// Theme
-export * from './theme';
 
 // Basic Components
 export * from './basic';

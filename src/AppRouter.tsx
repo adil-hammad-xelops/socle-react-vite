@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from 'components/ui/theme';
+import { lightTheme, darkTheme } from 'theme';
+import { GlobalStyle } from './GlobalStyle.ts';
 import { Navbar, ThemeToggle } from 'components/ui';
 import { NavigationMenu, LoadingFallback, Footer, menuItems } from 'components/router';
 import { appRoutes } from 'routes/AppRoutes';
@@ -25,7 +26,7 @@ import { AppContainer, MainContent } from './AppRouter.styled';
  */
 function AppRouter() {
   const { themeMode, setThemeMode } = useThemeMode();
-  const { menuOpen, toggleMenu } = useMenuState();
+  const { toggleMenu } = useMenuState();
 
   const currentTheme = themeMode === 'light' ? lightTheme : darkTheme;
 
@@ -33,6 +34,7 @@ function AppRouter() {
     <MuiThemeProvider theme={currentTheme}>
       <StyledThemeProvider theme={currentTheme}>
         <CssBaseline />
+        <GlobalStyle />
         <BrowserRouter>
           <AppContainer>
             {/* Navigation Bar */}

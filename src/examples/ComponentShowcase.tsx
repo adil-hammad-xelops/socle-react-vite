@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
-import { lightTheme } from 'components/ui/theme';
+import { lightTheme } from 'theme';
 import {
   Container,
   Grid,

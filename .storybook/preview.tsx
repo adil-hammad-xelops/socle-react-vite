@@ -1,44 +1,54 @@
 import type { Preview } from '@storybook/react';
-import React from 'react';
 import { create } from '@storybook/theming/create';
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { lightTheme } from '../src/components/ui/theme';
+import { lightTheme, darkTheme } from 'theme';
 
-// Create custom Storybook theme for docs
-const storybookTheme = create({
+// Create custom Storybook themes for docs
+const storybookLightTheme = create({
   base: 'light',
-
-  // Brand
   brandTitle: 'UI Component Library',
   brandUrl: '/',
   brandTarget: '_self',
-
-  // Colors
   colorPrimary: '#2563eb',
   colorSecondary: '#64748b',
-
-  // UI
-  appBg: '#F5F5F5',
-  appContentBg: '#FFFFFF',
-  appBorderColor: '#E2E8F0',
-  appBorderRadius: 4,
-
-  // Text colors
-  textColor: '#1E293B',
-  textInverseColor: '#FFFFFF',
+  appBg: '#ffffff',
+  appContentBg: '#ffffff',
+  appBorderColor: '#e2e8f0',
+  appBorderRadius: 8,
+  textColor: '#0f172a',
+  textInverseColor: '#ffffff',
   textMutedColor: '#64748b',
-
-  // Toolbar
   barTextColor: '#64748b',
   barSelectedColor: '#2563eb',
-  barBg: '#FFFFFF',
+  barBg: '#ffffff',
+  inputBg: '#ffffff',
+  inputBorder: '#e2e8f0',
+  inputTextColor: '#0f172a',
+  inputBorderRadius: 8,
+});
 
-  // Form colors
-  inputBg: '#FFFFFF',
-  inputBorder: '#CBD5E1',
-  inputTextColor: '#1E293B',
-  inputBorderRadius: 4,
+const storybookDarkTheme = create({
+  base: 'dark',
+  brandTitle: 'UI Component Library',
+  brandUrl: '/',
+  brandTarget: '_self',
+  colorPrimary: '#3b82f6',
+  colorSecondary: '#94a3b8',
+  appBg: '#0f172a',
+  appContentBg: '#1e293b',
+  appBorderColor: '#334155',
+  appBorderRadius: 8,
+  textColor: '#f8fafc',
+  textInverseColor: '#0f172a',
+  textMutedColor: '#94a3b8',
+  barTextColor: '#94a3b8',
+  barSelectedColor: '#3b82f6',
+  barBg: '#1e293b',
+  inputBg: '#1e293b',
+  inputBorder: '#334155',
+  inputTextColor: '#f8fafc',
+  inputBorderRadius: 8,
 });
 
 const preview: Preview = {
@@ -51,32 +61,61 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'gray',
-      values: [
-        { name: 'light', value: '#FFFFFF' },
-        { name: 'gray', value: '#F5F5F5' },
-        { name: 'dark', value: '#1A1A1A' },
-      ],
+      disable: true,
     },
     layout: 'centered',
     docs: {
-      theme: storybookTheme,
+      theme: storybookLightTheme,
       source: {
         state: 'open',
+      },
+      canvas: {
+        sourceState: 'shown',
+      },
+    },
+  },
+  globalTypes: {
+    theme: {
+      description: 'Global theme for components',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
       },
     },
   },
   decorators: [
-    (Story) => (
-      <MuiThemeProvider theme={lightTheme}>
-        <StyledThemeProvider theme={lightTheme}>
-          <CssBaseline />
-          <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100%' }}>
-            <Story />
-          </div>
-        </StyledThemeProvider>
-      </MuiThemeProvider>
-    ),
+    (Story, context) => {
+      const isDark = context.globals.theme === 'dark';
+      const theme = isDark ? darkTheme : lightTheme;
+      const backgroundColor = isDark ? '#0f172a' : '#f8fafc';
+
+      // Update docs theme dynamically
+      if (context.parameters.docs) {
+        context.parameters.docs.theme = isDark ? storybookDarkTheme : storybookLightTheme;
+      }
+
+      return (
+        <MuiThemeProvider theme={theme}>
+          <StyledThemeProvider theme={theme}>
+            <CssBaseline />
+            <div style={{
+              padding: '20px',
+              backgroundColor,
+              minHeight: '100vh',
+              minWidth: '100%',
+            }}>
+              <Story />
+            </div>
+          </StyledThemeProvider>
+        </MuiThemeProvider>
+      );
+    },
   ],
 };
 

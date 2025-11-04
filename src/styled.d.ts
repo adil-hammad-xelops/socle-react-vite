@@ -1,7 +1,8 @@
 import 'styled-components';
-import { Theme as MuiTheme } from '@mui/material/styles';
+import type { Theme as MuiTheme } from '@mui/material/styles';
 
 declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends MuiTheme {}
 }
 
