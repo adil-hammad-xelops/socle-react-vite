@@ -82,3 +82,47 @@ export const Disabled: Story = {
   },
 };
 
+// Range slider examples
+export const RangeSlider: Story = {
+  render: () => {
+    const [value, setValue] = useState<number[]>([20, 80]);
+    return (
+      <div>
+        <Slider
+          label="Price Range"
+          value={value}
+          onChange={(e, newValue) => setValue(newValue as number[])}
+          min={0}
+          max={100}
+          valueLabelDisplay="on"
+        />
+        <div style={{ marginTop: '16px', padding: '8px', background: '#f0f0f0', borderRadius: '4px' }}>
+          <strong>Range:</strong> ${value[0]} - ${value[1]}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const RangeWithMarks: Story = {
+  render: () => {
+    const [value, setValue] = useState<number[]>([25, 75]);
+    return (
+      <div>
+        <Slider
+          label="Temperature Range (°C)"
+          value={value}
+          onChange={(e, newValue) => setValue(newValue as number[])}
+          min={0}
+          max={100}
+          step={5}
+          marks
+        />
+        <div style={{ marginTop: '16px', padding: '8px', background: '#f0f0f0', borderRadius: '4px' }}>
+          <strong>Range:</strong> {value[0]}°C - {value[1]}°C
+        </div>
+      </div>
+    );
+  },
+};
+

@@ -228,7 +228,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
     large: 56,
   };
 
-  const actualSize = typeof size === 'number' ? size : sizeMap[size];
+  const actualSize = sizeMap[size] ?? size;
 
   const spinner = (
     <Box sx={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>

@@ -9,6 +9,9 @@
 export { lightTheme } from './lightTheme';
 export { darkTheme } from './darkTheme';
 
+// Export typography configuration
+export { typographyConfig } from './typography';
+
 // Export tokens
 export {
   colors,

@@ -10,6 +10,7 @@ export const menuItems: MenuItem[] = [
   { path: '/basic', label: 'Basic', available: true },
   { path: '/form', label: 'Forms', available: true },
   { path: '/examples', label: 'Examples', available: true },
+  { path: '/typography', label: 'Typography', available: true },
 
   // ⏳ Pending Refactoring (Need Container → View separation)
   { path: '/navigation', label: 'Navigation', available: false },

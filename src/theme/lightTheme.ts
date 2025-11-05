@@ -7,7 +7,8 @@
 
 import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions } from '@mui/material/styles';
-import { colors, spacing, typography, borderRadius, shadows, transitions, breakpoints, zIndex } from './tokens';
+import { colors, spacing, borderRadius, shadows, transitions, breakpoints, zIndex } from './tokens';
+import { typographyConfig } from './typography';
 
 const lightThemeOptions: ThemeOptions = {
   palette: {
@@ -37,25 +38,7 @@ const lightThemeOptions: ThemeOptions = {
       disabledBackground: colors.grey[200],
     },
   },
-  typography: {
-    fontFamily: typography.fontFamily,
-    fontSize: typography.fontSize,
-    fontWeightLight: typography.fontWeightLight,
-    fontWeightRegular: typography.fontWeightRegular,
-    fontWeightMedium: typography.fontWeightMedium,
-    fontWeightBold: typography.fontWeightBold,
-    h1: typography.h1,
-    h2: typography.h2,
-    h3: typography.h3,
-    h4: typography.h4,
-    h5: typography.h5,
-    h6: typography.h6,
-    body1: typography.body1,
-    body2: typography.body2,
-    button: typography.button,
-    caption: typography.caption,
-    overline: typography.overline,
-  },
+  typography: typographyConfig,
   shape: {
     borderRadius: borderRadius.md,
   },
@@ -74,7 +57,7 @@ const lightThemeOptions: ThemeOptions = {
         root: {
           borderRadius: borderRadius.md,
           textTransform: 'none',
-          fontWeight: typography.fontWeightMedium,
+          fontWeight: 500,
           boxShadow: shadows.none,
           transition: `all ${transitions.duration.short}ms ${transitions.easing.easeInOut}`,
           '&:hover': {

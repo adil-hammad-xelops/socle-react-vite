@@ -157,6 +157,10 @@ export const Slider: React.FC<SliderProps> = ({
   disabled = false,
   valueLabelDisplay = 'auto',
 }) => {
+  // Check if it's a range slider (array value)
+  const isRangeSlider = Array.isArray(value);
+  const ariaLabelValue = label || 'slider';
+
   return (
     <FormControl fullWidth>
       {label && <FormLabel sx={{ mb: 2 }}>{label}</FormLabel>}
@@ -169,7 +173,11 @@ export const Slider: React.FC<SliderProps> = ({
         marks={marks}
         disabled={disabled}
         valueLabelDisplay={valueLabelDisplay}
-        aria-label={label || 'slider'}
+        // Use getAriaLabel for range sliders, aria-label for single value
+        {...(isRangeSlider
+          ? { getAriaLabel: (index: number) => `${ariaLabelValue} ${index === 0 ? 'minimum' : 'maximum'}` }
+          : { 'aria-label': ariaLabelValue }
+        )}
       />
     </FormControl>
   );

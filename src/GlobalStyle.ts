@@ -1,5 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import type { Theme } from '@mui/material/styles';
 
 export const GlobalStyle = createGlobalStyle`
@@ -10,15 +9,22 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #ffffff;
-    color: #0f172a;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures for Inter */
   }
 
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  /* Headings use Poppins for visual distinction */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: normal;
+  }
+
+  /* Code elements use monospace font */
+  code, kbd, samp, pre {
+    font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Enable code ligatures */
   }
 `;
 

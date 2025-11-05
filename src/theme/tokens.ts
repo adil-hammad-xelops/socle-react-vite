@@ -66,9 +66,34 @@ export const spacing = {
   xxxl: 64,
 };
 
+/**
+ * Font Families
+ * Define all font stacks used in the application
+ */
+export const fontFamilies = {
+  // Primary font - Inter (body text, UI elements)
+  primary: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+  // Display font - Poppins (headings, hero text)
+  display: '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+  // Monospace font - Code blocks
+  monospace: '"Fira Code", "JetBrains Mono", "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace',
+
+  // System fonts - Fallback
+  system: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+} as const;
+
 export const typography = {
-  fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  // Font families (use fontFamilies object for consistency)
+  fontFamily: fontFamilies.primary,
+  fontFamilyDisplay: fontFamilies.display,
+  fontFamilyMonospace: fontFamilies.monospace,
+
+  // Base font size
   fontSize: 14,
+
+  // Font weights
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
