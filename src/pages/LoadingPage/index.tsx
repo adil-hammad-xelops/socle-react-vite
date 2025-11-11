@@ -1,4 +1,4 @@
-import {Stack, Typography} from 'components/ui';
+import {Stack, Typography} from '@mui/material';
 import {LoadingContainer, LoadingDot, LoadingWrapper, SpinnerWrapper,} from './LoadingPage.styled';
 
 /**

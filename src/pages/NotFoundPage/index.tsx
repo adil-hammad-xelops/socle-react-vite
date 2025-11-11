@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
-import {Button, Stack, Typography} from 'components/ui';
+import {Button} from 'components/ui';
 import {NotFoundCode, NotFoundContainer, NotFoundWrapper,} from './NotFoundPage.styled';
+import {Stack, Typography} from "@mui/material";
 
 export function NotFoundPage() {
     return (
@@ -15,7 +16,7 @@ export function NotFoundPage() {
                         The page you're looking for doesn't exist or has been moved.
                     </Typography>
                     <Link to="/" style={{textDecoration: 'none'}}>
-                        <Button variant="primary" size="large">
+                        <Button size="large">
                             Back to Home
                         </Button>
                     </Link>

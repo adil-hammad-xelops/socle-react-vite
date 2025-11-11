@@ -88,7 +88,7 @@ export function UserProfile() {
                 <UserEmail>{user.username}</UserEmail>
             </UserDetails>
             <ThemeToggle/>
-            <LogoutButton variant="secondary" size="small" onClick={handleLogout}>
+            <LogoutButton size="small" onClick={handleLogout}>
                 Logout
             </LogoutButton>
         </UserInfoContainer>

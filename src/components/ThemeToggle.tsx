@@ -6,8 +6,8 @@ export const ThemeToggle = () => {
     const {mode, toggleTheme} = useTheme();
 
     return (
-        <Tooltip title={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}>
-            <IconButton onClick={toggleTheme} color="inherit">
+        <Tooltip title={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`} arrow>
+            <IconButton onClick={toggleTheme} color="inherit" aria-label="toggle theme">
                 {mode === 'light' ? <Brightness4/> : <Brightness7/>}
             </IconButton>
         </Tooltip>

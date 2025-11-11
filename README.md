@@ -1,101 +1,127 @@
-# React + TypeScript + Vite
+# FS-AI-App - Enterprise React Boilerplate
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, production-ready React boilerplate built with **TypeScript**, **Vite 7**, **Redux Toolkit**, **Material-UI**,
+and **Azure AD authentication**.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run Storybook
+npm run storybook
+```
+
+## ✨ Features
+
+- ⚡ **Vite 7.2.2** - Lightning-fast build tool with HMR
+- 🎨 **Material-UI v5** - Comprehensive component library
+- 🔐 **Azure AD Auth** - Enterprise authentication with MSAL
+- 📦 **Redux Toolkit** - Modern state management with RTK Query
+- 🎭 **Dual Theming** - Light/Dark mode with MUI + Styled Components
+- 📚 **Storybook 8** - Component documentation and testing
+- 🎯 **TypeScript** - Full type safety with strict mode
+- 🚀 **Code Generation** - CLI tools for scaffolding components
+- 🏗️ **Feature-Sliced** - Scalable architecture pattern
+
+## 📖 Documentation
+
+**[Read the full documentation →](./DOCUMENTATION.md)**
+
+The comprehensive documentation includes:
+
+- What's new in Vite 7
+- Complete library versions and tech stack
+- Detailed project structure explanation
+- Development workflow and best practices
+- Authentication & authorization guide
+- State management patterns
+- Theming & styling guide
+- API integration examples
+- Code generation tools
+- Troubleshooting guide
+
+## 🛠️ Tech Stack
+
+| Category      | Libraries                                           |
+|---------------|-----------------------------------------------------|
+| **Core**      | React 18.2, TypeScript 5.3, Vite 7.2                |
+| **UI**        | Material-UI 5.15, Styled Components 6.1, Emotion 11 |
+| **State**     | Redux Toolkit 2.2, React Query 5.22                 |
+| **Auth**      | Azure MSAL 3.10, MSAL React 2.0                     |
+| **Forms**     | React Hook Form 7.50, Yup 1.3                       |
+| **Routing**   | React Router 6.22                                   |
+| **Dev Tools** | Storybook 8.0, ESLint 8, Generate React CLI 9.1     |
+
+## 📁 Project Structure
+
+```
+src/
+├── components/    # Reusable UI components
+├── containers/    # Smart components with business logic
+├── pages/         # Route-level pages
+├── services/      # API, Redux store, and slices
+├── theme/         # Theming configuration
+├── routes/        # Routing setup
+├── providers/     # Context providers (Auth, etc.)
+├── utils/         # Utility functions and hooks
+└── types/         # TypeScript definitions
+```
+
+## 🎯 Available Scripts
+
+```bash
+npm run dev              # Start dev server (port 3000)
+npm run build            # Build for production
+npm run preview          # Preview production build
+npm run lint             # Run ESLint
+npm run type-check       # TypeScript type checking
+npm run storybook        # Start Storybook
+npm run gen-component    # Generate new component
+npm run gen-container    # Generate new container
+npm run gen-page         # Generate new page
+```
+
+## 🔧 Environment Setup
+
+Create a `.env` file:
+
+```env
+VITE_FRONTEND_PORT=3000
+VITE_BACKEND_BASE_URL=/api
+VITE_BACKEND_TARGET=http://localhost:8012
+VITE_AZURE_CLIENT_ID=your-client-id
+VITE_AZURE_TENANT_ID=your-tenant-id
+```
 
 ## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it,
+see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## 📚 Resources
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Vite Documentation](https://vitejs.dev/)
+- [React Documentation](https://react.dev/)
+- [Material-UI Documentation](https://mui.com/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [Full Project Documentation](./DOCUMENTATION.md)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🤝 Contributing
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Please read the [documentation](./DOCUMENTATION.md) for details on the project structure and development workflow.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📄 License
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project is provided as a boilerplate template.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-# Feature-Sliced + Redux Toolkit Setup
-
-This project has been updated to use a lightweight Feature-Sliced structure with Redux Toolkit and RTK Query.
-
-Folders:
-- src/app – app-wide store and hooks
-- src/entities – low-level reusable domain entities (e.g., counter)
-- src/features – user-facing slices that combine entities and API (e.g., todos)
-- src/pages – route-level pages (e.g., Home)
-- src/shared – shared utilities and API base
-
-Key files:
-- src/app/store.ts – configureStore with counter slice and RTK Query baseApi
-- src/app/hooks.ts – typed useDispatch/useSelector
-- src/shared/api/baseApi.ts – RTK Query base API
-- src/entities/counter/* – counter slice + UI
-- src/features/todos/api/todosApi.ts – todos query using baseApi
-- src/pages/Home.tsx – demo page wiring Counter and todos list
-- public/todos.json – static mock used by the todos query
-
-Running locally:
-1) Install dependencies: npm install
-2) Start dev server: npm run dev
-
-RTK Query base URL:
-- baseUrl defaults to "/", so queries like "todos.json" are served from Vite's public/ folder.
-- To point to a real API, create a .env with VITE_API_URL=https://your.api/ and change queries accordingly (e.g., query: () => 'todos').
+**Built with ❤️ using React + TypeScript + Vite 7**

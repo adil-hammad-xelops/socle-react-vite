@@ -1,49 +1,15 @@
 {
+  "extends": "../tsconfig.node.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "types": ["node", "@storybook/react"],
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Absolute imports */
-    "baseUrl": "../src",
-    "paths": {
-      "@/*": ["./*"],
-      "services/*": ["./services/*"],
-      "components/*": ["./components/*"],
-      "containers/*": ["./containers/*"],
-      "pages/*": ["./pages/*"],
-      "routes/*": ["./routes/*"],
-      "types/*": ["./types/*"],
-      "utils/*": ["./utils/*"],
-      "hooks/*": ["./hooks/*"],
-      "examples/*": ["./examples/*"],
-      "theme/*": ["./theme/*"]
-    },
-
-    /* Interop */
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-
-    /* Linting */
-    "strict": true
+    "types": [
+      "node"
+    ]
   },
   "include": [
-    "./**/*.ts",
-    "./**/*.tsx",
+    "*.ts",
+    "*.tsx",
     "../src/**/*.stories.ts",
     "../src/**/*.stories.tsx"
-  ],
-  "exclude": []
+  ]
 }
 
