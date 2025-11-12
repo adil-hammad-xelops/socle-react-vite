@@ -1,4 +1,4 @@
-# FS-AI-App - Enterprise React Boilerplate
+# React Vite Boilerplate - Enterprise React Boilerplate
 
 A modern, production-ready React boilerplate built with **TypeScript**, **Vite 7**, **Redux Toolkit**, **Material-UI**,
 and **Azure AD authentication**.
