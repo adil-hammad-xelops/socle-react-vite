@@ -1,465 +1,414 @@
 import {useState} from 'react';
-import {Box, Divider, Grid, Stack, Typography} from '@mui/material';
-import {Footer, Header, PageLayout} from 'components/layout';
-import {Badge, Button, Card, Dropdown, Input, Modal, Tooltip} from 'components/ui';
-import {Checkbox, Form, RadioButton, SearchBar, Select, TextArea} from 'components/forms';
-import {Breadcrumb, Navbar, Pagination, Sidebar, Tabs} from 'components/navigation';
-import {Alert, EmptyState, Loader, Notification, Skeleton, Spinner, Toast} from 'components/feedback';
-import {Accordion, List, StatsCard, Table} from 'components/data-display';
-import {Avatar} from 'components/misc';
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import {
+    Accordion,
+    AccordionButton,
+    AccordionIcon,
+    AccordionItem,
+    AccordionPanel,
+    Alert,
+    AlertIcon,
+    Avatar,
+    AvatarGroup,
+    Badge,
+    Box,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Checkbox,
+    Divider,
+    Heading,
+    HStack,
+    IconButton,
+    Input,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Progress,
+    Radio,
+    RadioGroup,
+    SimpleGrid,
+    Skeleton,
+    Slider,
+    SliderFilledTrack,
+    SliderThumb,
+    SliderTrack,
+    Spinner,
+    Switch,
+    Tab,
+    Table,
+    TableContainer,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+    Tag,
+    Tbody,
+    Td,
+    Text,
+    Textarea,
+    Th,
+    Thead,
+    Tooltip,
+    Tr,
+    useDisclosure,
+    useToast,
+    VStack,
+} from '@chakra-ui/react';
+import {FaChevronRight, FaEnvelope} from 'react-icons/fa';
 import {DemoContainer, ExampleSection, SectionTitle} from './AllComponentsDemo.styled';
 
 const AllComponentsDemo = () => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [toastOpen, setToastOpen] = useState(false);
-    const [searchValue, setSearchValue] = useState('');
-    const [selectedRadio, setSelectedRadio] = useState('option1');
-    const [page, setPage] = useState(1);
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const [radioValue, setRadioValue] = useState('1');
+    const [sliderValue, setSliderValue] = useState(30);
+    const toast = useToast();
+
+    const showToast = () => {
+        toast({
+            title: 'Success!',
+            description: 'This is a sample toast notification.',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+        });
+    };
 
     return (
-        <PageLayout title="All Components Demo" showHeader={false} showFooter={false}>
-            <Box sx={{py: 4}}>
-                {/* Page Title */}
-                <Box sx={{mb: 4, textAlign: 'center'}}>
-                    <Typography variant="h2" gutterBottom>
-                        Complete Component Library
-                    </Typography>
-                    <Typography variant="h5" color="text.secondary" paragraph>
-                        46 Production-Ready Components
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Explore all available components with interactive examples and code snippets
-                    </Typography>
-                </Box>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Layout Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Layout Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Typography variant="h6" gutterBottom>Header Component</Typography>
-                        <Header title="Demo Header" showMenu onMenuClick={() => setSidebarOpen(true)}/>
-
-                        <Box sx={{mt: 3}}>
-                            <Typography variant="h6" gutterBottom>Footer Component</Typography>
-                            <Footer companyName="Demo Company"/>
-                        </Box>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* UI Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        UI Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Buttons</Typography>
-                                <Stack direction="row" spacing={2} flexWrap="wrap">
-                                    <Button variant="contained" color="primary">Primary</Button>
-                                    <Button variant="contained" color="secondary">Secondary</Button>
-                                    <Button variant="outlined">Outlined</Button>
-                                    <Button variant="text">Text</Button>
-                                    <Button loading>Loading</Button>
-                                    <Button startIcon={<MailIcon/>}>With Icon</Button>
-                                </Stack>
-                            </Grid>
-
-                            <Grid item xs={12} md={4}>
-                                <Typography variant="h6" gutterBottom>Card</Typography>
-                                <Card
-                                    title="Sample Card"
-                                    subtitle="Card subtitle"
-                                    actions={<Button size="small">Action</Button>}
-                                >
-                                    This is card content with actions and subtitle.
-                                </Card>
-                            </Grid>
-
-                            <Grid item xs={12} md={4}>
-                                <Typography variant="h6" gutterBottom>Tooltip & Badge</Typography>
-                                <Stack spacing={2}>
-                                    <Tooltip title="This is a tooltip">
-                                        <Button>Hover Me</Button>
-                                    </Tooltip>
-                                    <Box>
-                                        <Badge badgeContent={4} color="primary">
-                                            <NotificationsIcon/>
-                                        </Badge>
-                                        <Badge badgeContent={99} color="error" sx={{ml: 3}}>
-                                            <MailIcon/>
-                                        </Badge>
-                                    </Box>
-                                </Stack>
-                            </Grid>
-
-                            <Grid item xs={12} md={4}>
-                                <Typography variant="h6" gutterBottom>Dropdown</Typography>
-                                <Dropdown
-                                    label="Select Option"
-                                    options={[
-                                        {label: 'Option 1', value: '1'},
-                                        {label: 'Option 2', value: '2'},
-                                        {label: 'Option 3', value: '3'},
-                                    ]}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Input Fields</Typography>
-                                <form onSubmit={(e) => e.preventDefault()}>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} md={6}>
-                                            <Input label="Text Input" placeholder="Enter text..."/>
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <Input label="Email" type="email" placeholder="your@email.com"/>
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <Input label="Password (Demo)" type="text" placeholder="password123"/>
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <Input label="Disabled" disabled value="Disabled input"/>
-                                        </Grid>
-                                    </Grid>
-                                </form>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Form Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Form Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Search Bar</Typography>
-                                <SearchBar
-                                    placeholder="Search..."
-                                    value={searchValue}
-                                    onChange={setSearchValue}
-                                    onSearch={(val) => alert(`Searching: ${val}`)}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Select</Typography>
-                                <Select
-                                    label="Choose Option"
-                                    options={[
-                                        {label: 'First', value: 'first'},
-                                        {label: 'Second', value: 'second'},
-                                        {label: 'Third', value: 'third'},
-                                    ]}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Checkboxes</Typography>
-                                <Stack>
-                                    <Checkbox label="Option 1"/>
-                                    <Checkbox label="Option 2" defaultChecked/>
-                                    <Checkbox label="Disabled" disabled/>
-                                </Stack>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Radio Buttons</Typography>
-                                <RadioButton
-                                    label="Select One"
-                                    options={[
-                                        {label: 'Option 1', value: 'option1'},
-                                        {label: 'Option 2', value: 'option2'},
-                                        {label: 'Option 3', value: 'option3'},
-                                    ]}
-                                    value={selectedRadio}
-                                    onChange={setSelectedRadio}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Text Area</Typography>
-                                <TextArea label="Description" placeholder="Enter description..." rows={3}/>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Complete Form</Typography>
-                                <Form onSubmit={(_) => alert('Form submitted!')}>
-                                    <Input label="Name" required/>
-                                    <Input label="Email" type="email" required/>
-                                    <TextArea label="Message" rows={3}/>
-                                    <Button type="submit">Submit Form</Button>
-                                </Form>
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Navigation Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Navigation Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Navbar</Typography>
-                                <Navbar
-                                    title="Demo App"
-                                    items={[
-                                        {label: 'Home', path: '/'},
-                                        {label: 'About', path: '/about'},
-                                        {label: 'Contact', path: '/contact'},
-                                    ]}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Breadcrumb</Typography>
-                                <Breadcrumb
-                                    items={[
-                                        {label: 'Home', href: '/'},
-                                        {label: 'Components', href: '/components'},
-                                        {label: 'Demo', href: '/demo'},
-                                    ]}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Pagination</Typography>
-                                <Pagination count={10} page={page} onChange={(_, p) => setPage(p)}/>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Button onClick={() => setSidebarOpen(true)}>Open Sidebar</Button>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Tabs</Typography>
-                                <Tabs
-                                    tabs={[
-                                        {label: 'Tab 1', content: <Typography>Content for Tab 1</Typography>},
-                                        {label: 'Tab 2', content: <Typography>Content for Tab 2</Typography>},
-                                        {label: 'Tab 3', content: <Typography>Content for Tab 3</Typography>},
-                                    ]}
-                                />
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Feedback Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Feedback Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Alerts</Typography>
-                                <Stack spacing={2}>
-                                    <Alert severity="success" message="Success alert!"/>
-                                    <Alert severity="info" message="Info alert"/>
-                                    <Alert severity="warning" message="Warning alert"/>
-                                    <Alert severity="error" message="Error alert"/>
-                                </Stack>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Toast</Typography>
-                                <Button onClick={() => setToastOpen(true)}>Show Toast</Button>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Spinner</Typography>
-                                <Spinner text="Loading..."/>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Loader</Typography>
-                                <Loader text="Processing..."/>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Notification</Typography>
-                                <Notification severity="info" title="Info" message="This is a notification"/>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Skeleton</Typography>
-                                <Skeleton lines={3}/>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Empty State</Typography>
-                                <EmptyState
-                                    title="No Data"
-                                    description="Nothing to display"
-                                    actionLabel="Add Item"
-                                    onAction={() => alert('Add clicked')}
-                                />
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Data Display Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Data Display Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={3}>
-                                <StatsCard label="Total Users" value="1,234" color="#4caf50"/>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <StatsCard label="Revenue" value="$45.2K" sublabel="+12% from last month"
-                                           color="#2196f3"/>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <StatsCard label="Orders" value="856" color="#ff9800"/>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <StatsCard label="Active Now" value="42" color="#f44336"/>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Table</Typography>
-                                <Table
-                                    columns={[
-                                        {key: 'name', label: 'Name'},
-                                        {key: 'email', label: 'Email'},
-                                        {key: 'role', label: 'Role'},
-                                    ]}
-                                    data={[
-                                        {name: 'John Doe', email: 'john@example.com', role: 'Admin'},
-                                        {name: 'Jane Smith', email: 'jane@example.com', role: 'User'},
-                                        {name: 'Bob Johnson', email: 'bob@example.com', role: 'Editor'},
-                                    ]}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>List</Typography>
-                                <List
-                                    items={['Item 1', 'Item 2', 'Item 3', 'Item 4']}
-                                    getLabel={(item) => item}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>Accordion</Typography>
-                                <Stack spacing={1}>
-                                    <Accordion title="Section 1">Content for section 1</Accordion>
-                                    <Accordion title="Section 2">Content for section 2</Accordion>
-                                    <Accordion title="Section 3" defaultExpanded>Content for section 3 (expanded by
-                                        default)</Accordion>
-                                </Stack>
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                <Divider sx={{my: 4}}/>
-
-                {/* Misc Components */}
-                <ExampleSection>
-                    <SectionTitle variant="h3" gutterBottom>
-                        Miscellaneous Components
-                    </SectionTitle>
-
-                    <DemoContainer>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Avatars</Typography>
-                                <Stack direction="row" spacing={2}>
-                                    <Avatar alt="User 1" src="https://i.pravatar.cc/150?img=1"/>
-                                    <Avatar alt="User 2" src="https://i.pravatar.cc/150?img=2"/>
-                                    <Avatar>JD</Avatar>
-                                    <Avatar sx={{bgcolor: 'primary.main'}}>AB</Avatar>
-                                </Stack>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>Dividers</Typography>
-                                <Box>
-                                    <Typography>Content Above</Typography>
-                                    <Divider sx={{my: 2}}/>
-                                    <Typography>Content Below</Typography>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </DemoContainer>
-                </ExampleSection>
-
-                {/* Modals and Overlays */}
-                <Modal
-                    open={modalOpen}
-                    onClose={() => setModalOpen(false)}
-                    title="Example Modal"
-                    actions={
-                        <>
-                            <Button variant="outlined" onClick={() => setModalOpen(false)}>Cancel</Button>
-                            <Button onClick={() => setModalOpen(false)}>Confirm</Button>
-                        </>
-                    }
-                >
-                    <Typography>
-                        This is the modal content. You can put any content here including forms, text, or other
-                        components.
-                    </Typography>
-                </Modal>
-
-                <Sidebar
-                    open={sidebarOpen}
-                    onClose={() => setSidebarOpen(false)}
-                    items={[
-                        {label: 'Home', icon: <HomeIcon/>, onClick: () => setSidebarOpen(false)},
-                        {label: 'Settings', icon: <SettingsIcon/>, onClick: () => setSidebarOpen(false)},
-                    ]}
-                />
-
-                <Toast
-                    open={toastOpen}
-                    onClose={() => setToastOpen(false)}
-                    message="This is a toast notification!"
-                    severity="success"
-                />
+        <Box p={4}>
+            <Box mb={8} textAlign="center">
+                <Heading as="h1" size="2xl" mb={4}>
+                    Complete Component Library
+                </Heading>
+                <Text fontSize="xl" color="gray.500">
+                    A comprehensive demonstration of all UI components
+                </Text>
             </Box>
-        </PageLayout>
+
+            <Divider my={6}/>
+
+            {/* Form Components */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Form Components
+                </SectionTitle>
+                <DemoContainer>
+                    <VStack spacing={6} align="stretch">
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Buttons</Text>
+                            <HStack spacing={4} flexWrap="wrap">
+                                <Button colorScheme="blue">Primary Button</Button>
+                                <Button colorScheme="gray" variant="outline">Secondary</Button>
+                                <Button colorScheme="red" variant="ghost">Ghost</Button>
+                                <IconButton aria-label="Email" icon={<FaEnvelope/>} colorScheme="teal"/>
+                            </HStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Input Fields</Text>
+                            <VStack spacing={3} align="stretch" maxW="400px">
+                                <Input placeholder="Basic input"/>
+                                <Input type="password" placeholder="Password field"/>
+                                <Textarea placeholder="Enter your message here..." rows={3}/>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Selection Controls</Text>
+                            <VStack spacing={4} align="start">
+                                <Checkbox defaultChecked>Accept terms and conditions</Checkbox>
+                                <RadioGroup onChange={setRadioValue} value={radioValue}>
+                                    <HStack spacing={4}>
+                                        <Radio value="1">Option 1</Radio>
+                                        <Radio value="2">Option 2</Radio>
+                                        <Radio value="3">Option 3</Radio>
+                                    </HStack>
+                                </RadioGroup>
+                                <HStack spacing={4} align="center">
+                                    <Text>Toggle Switch:</Text>
+                                    <Switch colorScheme="blue"/>
+                                </HStack>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Slider</Text>
+                            <Box maxW="300px">
+                                <Slider
+                                    value={sliderValue}
+                                    onChange={(val) => setSliderValue(val)}
+                                    colorScheme="blue"
+                                >
+                                    <SliderTrack>
+                                        <SliderFilledTrack/>
+                                    </SliderTrack>
+                                    <SliderThumb/>
+                                </Slider>
+                                <Text fontSize="sm" color="gray.500" mt={1}>Value: {sliderValue}</Text>
+                            </Box>
+                        </Box>
+                    </VStack>
+                </DemoContainer>
+            </ExampleSection>
+
+            {/* Data Display */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Data Display
+                </SectionTitle>
+                <DemoContainer>
+                    <SimpleGrid columns={{base: 1, md: 2, lg: 3}} spacing={6}>
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Badges & Tags</Text>
+                            <VStack spacing={3} align="start">
+                                <HStack spacing={2}>
+                                    <Badge colorScheme="blue">New</Badge>
+                                    <Badge colorScheme="green">Success</Badge>
+                                    <Badge colorScheme="red">Error</Badge>
+                                </HStack>
+                                <HStack spacing={2}>
+                                    <Tag colorScheme="purple">Purple Tag</Tag>
+                                    <Tag colorScheme="orange">Orange Tag</Tag>
+                                </HStack>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Avatar & Avatar Group</Text>
+                            <VStack spacing={4}>
+                                <Avatar name="John Doe" size="lg"/>
+                                <AvatarGroup size="md" max={3}>
+                                    <Avatar name="Ryan Florence"/>
+                                    <Avatar name="Segun Adebayo"/>
+                                    <Avatar name="Kent Dodds"/>
+                                    <Avatar name="Prosper Otemuyiwa"/>
+                                </AvatarGroup>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Card</Text>
+                            <Card maxW="300px">
+                                <CardHeader>
+                                    <Heading size="md">Sample Card</Heading>
+                                </CardHeader>
+                                <CardBody>
+                                    <Text>This is a sample card with header, body, and footer sections.</Text>
+                                </CardBody>
+                                <CardFooter>
+                                    <Button size="sm" colorScheme="blue">View Details</Button>
+                                </CardFooter>
+                            </Card>
+                        </Box>
+                    </SimpleGrid>
+                </DemoContainer>
+            </ExampleSection>
+
+            {/* Feedback */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Feedback Components
+                </SectionTitle>
+                <DemoContainer>
+                    <VStack spacing={4} align="stretch">
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Alerts</Text>
+                            <VStack spacing={3}>
+                                <Alert status="success">
+                                    <AlertIcon/>
+                                    Data uploaded successfully!
+                                </Alert>
+                                <Alert status="error">
+                                    <AlertIcon/>
+                                    There was an error processing your request.
+                                </Alert>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Loading States</Text>
+                            <HStack spacing={6}>
+                                <Spinner color="blue.500" size="lg"/>
+                                <Progress value={64} colorScheme="green" w="200px"/>
+                            </HStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Skeleton Loading</Text>
+                            <VStack spacing={2} align="stretch" maxW="300px">
+                                <Skeleton height="20px"/>
+                                <Skeleton height="20px"/>
+                                <Skeleton height="20px"/>
+                            </VStack>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Tooltip & Toast</Text>
+                            <HStack spacing={4}>
+                                <Tooltip label="This is a helpful tooltip" placement="top">
+                                    <Button>Hover for tooltip</Button>
+                                </Tooltip>
+                                <Button onClick={showToast} colorScheme="green">Show Toast</Button>
+                            </HStack>
+                        </Box>
+                    </VStack>
+                </DemoContainer>
+            </ExampleSection>
+
+            {/* Navigation */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Navigation Components
+                </SectionTitle>
+                <DemoContainer>
+                    <VStack spacing={6} align="stretch">
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Breadcrumb</Text>
+                            <Breadcrumb spacing="8px" separator={<FaChevronRight color="gray.500"/>}>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="#">Components</BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbItem isCurrentPage>
+                                    <BreadcrumbLink href="#">Demo</BreadcrumbLink>
+                                </BreadcrumbItem>
+                            </Breadcrumb>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Tabs</Text>
+                            <Tabs>
+                                <TabList>
+                                    <Tab>Tab 1</Tab>
+                                    <Tab>Tab 2</Tab>
+                                    <Tab>Tab 3</Tab>
+                                </TabList>
+                                <TabPanels>
+                                    <TabPanel>
+                                        <Text>Content for Tab 1</Text>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <Text>Content for Tab 2</Text>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <Text>Content for Tab 3</Text>
+                                    </TabPanel>
+                                </TabPanels>
+                            </Tabs>
+                        </Box>
+                    </VStack>
+                </DemoContainer>
+            </ExampleSection>
+
+            {/* Data Structures */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Data Structures
+                </SectionTitle>
+                <DemoContainer>
+                    <VStack spacing={6} align="stretch">
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Table</Text>
+                            <TableContainer>
+                                <Table variant="simple">
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Name</Th>
+                                            <Th>Email</Th>
+                                            <Th>Role</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        <Tr>
+                                            <Td>John Doe</Td>
+                                            <Td>john@example.com</Td>
+                                            <Td>Admin</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td>Jane Smith</Td>
+                                            <Td>jane@example.com</Td>
+                                            <Td>User</Td>
+                                        </Tr>
+                                    </Tbody>
+                                </Table>
+                            </TableContainer>
+                        </Box>
+
+                        <Box>
+                            <Text fontWeight="semibold" mb={3}>Accordion</Text>
+                            <Accordion defaultIndex={[0]} allowMultiple>
+                                <AccordionItem>
+                                    <h2>
+                                        <AccordionButton>
+                                            <Box flex="1" textAlign="left">
+                                                Section 1 title
+                                            </Box>
+                                            <AccordionIcon/>
+                                        </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel pb={4}>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </AccordionPanel>
+                                </AccordionItem>
+
+                                <AccordionItem>
+                                    <h2>
+                                        <AccordionButton>
+                                            <Box flex="1" textAlign="left">
+                                                Section 2 title
+                                            </Box>
+                                            <AccordionIcon/>
+                                        </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel pb={4}>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </AccordionPanel>
+                                </AccordionItem>
+                            </Accordion>
+                        </Box>
+                    </VStack>
+                </DemoContainer>
+            </ExampleSection>
+
+            {/* Overlays */}
+            <ExampleSection>
+                <SectionTitle as="h2" size="lg" mb={6}>
+                    Overlay Components
+                </SectionTitle>
+                <DemoContainer>
+                    <Box>
+                        <Text fontWeight="semibold" mb={3}>Modal</Text>
+                        <Button onClick={onOpen} colorScheme="blue">Open Modal</Button>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            <ModalOverlay/>
+                            <ModalContent>
+                                <ModalHeader>Sample Modal</ModalHeader>
+                                <ModalCloseButton/>
+                                <ModalBody>
+                                    <Text>This is a sample modal dialog with header, body, and footer.</Text>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button colorScheme="blue" mr={3} onClick={onClose}>
+                                        Save
+                                    </Button>
+                                    <Button variant="ghost" onClick={onClose}>Cancel</Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+                    </Box>
+                </DemoContainer>
+            </ExampleSection>
+        </Box>
     );
 };
 

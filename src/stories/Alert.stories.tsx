@@ -1,96 +1,214 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {Alert} from 'components/feedback';
+import {Alert} from '../components/ui';
+import {AlertDescription, AlertIcon, AlertTitle, Box, CloseButton, Stack} from '@chakra-ui/react';
 
-const meta = {
-    title: 'Feedback/Alert',
+const meta: Meta<typeof Alert> = {
+    title: 'UI/Alert',
     component: Alert,
     parameters: {
         layout: 'padded',
+        docs: {
+            description: {
+                component: 'An alert component built with Chakra UI for displaying important messages to users.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
-        severity: {
+        status: {
             control: 'select',
-            options: ['error', 'warning', 'info', 'success'],
+            options: ['info', 'warning', 'success', 'error', 'loading'],
         },
         variant: {
             control: 'select',
-            options: ['filled', 'outlined', 'standard'],
-        },
-        closable: {
-            control: 'boolean',
+            options: ['subtle', 'left-accent', 'top-accent', 'solid'],
         },
     },
-} satisfies Meta<typeof Alert>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Success: Story = {
+export const Default: Story = {
     args: {
-        severity: 'success',
-        message: 'This is a success alert!',
+        status: 'info',
+        children: (
+            <>
+                <AlertIcon/>
+                Data uploaded to the server. Fire on!
+            </>
+        ),
     },
 };
 
-export const Info: Story = {
-    args: {
-        severity: 'info',
-        message: 'This is an informational alert.',
+export const StatusTypes: Story = {
+    render: () => (
+        <Stack spacing={3} width="380px" maxWidth="100%">
+            <Alert status="error">
+                <AlertIcon/>
+                There was an error processing your request
+            </Alert>
+            <Alert status="success">
+                <AlertIcon/>
+                Data uploaded to the server. Fire on!
+            </Alert>
+            <Alert status="warning">
+                <AlertIcon/>
+                Seems your account is about to expire, upgrade now
+            </Alert>
+            <Alert status="info">
+                <AlertIcon/>
+                Chakra is going live on August 30th. Get ready!
+            </Alert>
+            <Alert status="loading">
+                <AlertIcon/>
+                Uploading your files...
+            </Alert>
+        </Stack>
+    ),
+    parameters: {
+        controls: {disable: true},
+        actions: {disable: true},
+        layout: 'padded',
+        docs: {
+            source: {
+                code: `<Stack spacing={3} width="400px">
+  <Alert status="error">
+    <AlertIcon/>
+    There was an error processing your request
+  </Alert>
+  <Alert status="success">
+    <AlertIcon/>
+    Data uploaded to the server. Fire on!
+  </Alert>
+  <Alert status="warning">
+    <AlertIcon/>
+    Seems your account is about to expire, upgrade now
+  </Alert>
+  <Alert status="info">
+    <AlertIcon/>
+    Chakra is going live on August 30th. Get ready!
+  </Alert>
+</Stack>`
+            },
+            story: {
+                inline: true,
+                height: '300px',
+            },
+        }
     },
 };
 
-export const Warning: Story = {
-    args: {
-        severity: 'warning',
-        message: 'This is a warning alert!',
-    },
+export const Variants: Story = {
+    render: () => (
+        <Stack spacing={3} width="400px">
+            <Alert status="success" variant="subtle">
+                <AlertIcon/>
+                Subtle variant
+            </Alert>
+            <Alert status="success" variant="left-accent">
+                <AlertIcon/>
+                Left accent variant
+            </Alert>
+            <Alert status="success" variant="top-accent">
+                <AlertIcon/>
+                Top accent variant
+            </Alert>
+            <Alert status="success" variant="solid">
+                <AlertIcon/>
+                Solid variant
+            </Alert>
+        </Stack>
+    ),
 };
 
-export const Error: Story = {
-    args: {
-        severity: 'error',
-        message: 'This is an error alert!',
-    },
+export const WithTitleAndDescription: Story = {
+    render: () => (
+        <Stack spacing={3} width="400px">
+            <Alert status="error">
+                <AlertIcon/>
+                <Box>
+                    <AlertTitle>Your browser is outdated!</AlertTitle>
+                    <AlertDescription>
+                        Your Chakra experience may be degraded.
+                    </AlertDescription>
+                </Box>
+            </Alert>
+            <Alert status="success">
+                <AlertIcon/>
+                <Box>
+                    <AlertTitle>Success!</AlertTitle>
+                    <AlertDescription>
+                        Your application has been received. We will review your application and respond within the next
+                        48 hours.
+                    </AlertDescription>
+                </Box>
+            </Alert>
+        </Stack>
+    ),
 };
 
-export const WithTitle: Story = {
-    args: {
-        severity: 'info',
-        title: 'Information',
-        message: 'This alert has both a title and a message.',
-    },
+export const WithCloseButton: Story = {
+    render: () => (
+        <Stack spacing={3} width="400px">
+            <Alert status="warning" variant="left-accent">
+                <AlertIcon/>
+                <Box>
+                    <AlertTitle>Warning!</AlertTitle>
+                    <AlertDescription>
+                        Your session will expire in 5 minutes.
+                    </AlertDescription>
+                </Box>
+                <CloseButton
+                    alignSelf="flex-start"
+                    position="relative"
+                    right={-1}
+                    top={-1}
+                />
+            </Alert>
+        </Stack>
+    ),
 };
 
-export const FilledVariant: Story = {
-    args: {
-        severity: 'success',
-        variant: 'filled',
-        message: 'This is a filled success alert',
-    },
+export const CustomContent: Story = {
+    render: () => (
+        <Stack spacing={3} width="400px">
+            <Alert status="info" variant="top-accent">
+                <AlertIcon/>
+                <Box flex="1">
+                    <AlertTitle>Holy guacamole!</AlertTitle>
+                    <AlertDescription display="block">
+                        Something just happened! You should check it out.
+                    </AlertDescription>
+                </Box>
+                <CloseButton position="absolute" right="8px" top="8px"/>
+            </Alert>
+        </Stack>
+    ),
 };
 
-export const OutlinedVariant: Story = {
+export const Interactive: Story = {
     args: {
-        severity: 'warning',
-        variant: 'outlined',
-        message: 'This is an outlined warning alert',
+        status: 'info',
+        variant: 'subtle',
+    },
+    render: (args) => (
+        <Alert {...args}>
+            <AlertIcon/>
+            <Box>
+                <AlertTitle>Interactive Alert</AlertTitle>
+                <AlertDescription>
+                    You can customize this alert using the controls above.
+                </AlertDescription>
+            </Box>
+        </Alert>
+    ),
+    parameters: {
+        docs: {
+            source: {
+                state: 'open',
+                type: 'dynamic',
+            },
+        },
     },
 };
-
-export const NotClosable: Story = {
-    args: {
-        severity: 'info',
-        message: 'This alert cannot be closed',
-        closable: false,
-    },
-};
-
-export const LongMessage: Story = {
-    args: {
-        severity: 'warning',
-        title: 'Important Notice',
-        message: 'This is a longer alert message that demonstrates how alerts handle more text content. You can include detailed information that users need to read carefully.',
-    },
-};
-

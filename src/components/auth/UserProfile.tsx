@@ -1,99 +1,106 @@
-import {useIsAuthenticated, useMsal} from '@azure/msal-react';
-import {Button} from 'components/ui';
-import ThemeToggle from 'components/ThemeToggle';
-import styled from 'styled-components';
-import type {Theme} from '@mui/material/styles';
-
-const UserInfoContainer = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-`;
-
-const UserAvatar = styled.div`
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: ${({theme}: { theme: Theme }) => theme.palette.primary.main};
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1rem;
-`;
-
-const UserDetails = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-`;
-
-const UserName = styled.span`
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: ${({theme}: { theme: Theme }) => theme.palette.text.primary};
-`;
-
-const UserEmail = styled.span`
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: ${({theme}: { theme: Theme }) => theme.palette.text.secondary};
-`;
-
-const LogoutButton = styled(Button)`
-    margin-left: 1rem;
-`;
+import {useState} from 'react';
+import {
+    Avatar,
+    Button,
+    HStack,
+    Menu,
+    MenuButton,
+    MenuDivider,
+    MenuItem,
+    MenuList,
+    Spinner,
+    Text,
+    useColorModeValue,
+    VStack,
+} from '@chakra-ui/react';
+import {FaChevronDown, FaCog, FaSignOutAlt} from 'react-icons/fa';
+import {useAuthService, useUserInfo} from 'providers/auth-provider/hooks';
 
 /**
  * User Profile Component
- *
- * Displays user information and logout button
+ * Displays user information and logout functionality
  */
 export function UserProfile() {
-    const isAuthenticated = useIsAuthenticated();
-    const {instance, accounts} = useMsal();
-    const user = accounts[0];
+    const userInfo = useUserInfo();
+    const {logoutWithPopup} = useAuthService();
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-    if (!isAuthenticated || !user) {
+    const bgColor = useColorModeValue('white', 'gray.800');
+    const borderColor = useColorModeValue('gray.200', 'gray.600');
+
+    if (!userInfo.isAuthenticated) {
         return null;
     }
 
     const handleLogout = async () => {
-        try {
-            await instance.logoutPopup({
-                mainWindowRedirectUri: '/',
-            });
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    };
-
-    // Get user initials for avatar
-    const getInitials = (name?: string) => {
-        if (!name) return '?';
-        const parts = name.split(' ');
-        if (parts.length >= 2) {
-            return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
-        }
-        return name.substring(0, 2).toUpperCase();
+        setIsLoggingOut(true);
+        await logoutWithPopup();
+        setIsLoggingOut(false);
     };
 
     return (
-        <UserInfoContainer>
-            <UserAvatar>{getInitials(user.name)}</UserAvatar>
-            <UserDetails>
-                <UserName>{user.name || 'User'}</UserName>
-                <UserEmail>{user.username}</UserEmail>
-            </UserDetails>
-            <ThemeToggle/>
-            <LogoutButton size="small" onClick={handleLogout}>
-                Logout
-            </LogoutButton>
-        </UserInfoContainer>
+        <Menu>
+            <MenuButton
+                as={Button}
+                variant="ghost"
+                size="sm"
+                rightIcon={<FaChevronDown/>}
+                p={2}
+                bg={bgColor}
+                border="1px"
+                borderColor={borderColor}
+                _hover={{
+                    bg: useColorModeValue('gray.50', 'gray.700'),
+                }}
+                disabled={isLoggingOut}
+            >
+                <HStack spacing={3}>
+                    <Avatar
+                        size="sm"
+                        name={userInfo.name}
+                        bg="blue.500"
+                        color="white"
+                    />
+                    <VStack spacing={0} align="start" display={{base: 'none', md: 'flex'}}>
+                        <Text fontSize="sm" fontWeight="medium" lineHeight="1.2">
+                            {userInfo.name}
+                        </Text>
+                        <Text fontSize="xs" color="gray.500" lineHeight="1.2">
+                            {userInfo.email}
+                        </Text>
+                    </VStack>
+                </HStack>
+            </MenuButton>
+
+            <MenuList>
+                <VStack spacing={2} align="start" px={3} py={2} display={{base: 'flex', md: 'none'}}>
+                    <Text fontSize="sm" fontWeight="medium">
+                        {userInfo.name}
+                    </Text>
+                    <Text fontSize="xs" color="gray.500">
+                        {userInfo.email}
+                    </Text>
+                </VStack>
+
+                <MenuDivider display={{base: 'block', md: 'none'}}/>
+
+                <MenuItem icon={<FaCog/>}>
+                    Settings
+                </MenuItem>
+
+                <MenuDivider/>
+
+                <MenuItem
+                    onClick={handleLogout}
+                    color="red.500"
+                    disabled={isLoggingOut}
+                    icon={isLoggingOut ? <Spinner size="sm"/> : <FaSignOutAlt/>}
+                >
+                    {isLoggingOut ? 'Signing out...' : 'Sign out'}
+                </MenuItem>
+            </MenuList>
+        </Menu>
     );
 }
 
 export default UserProfile;
-

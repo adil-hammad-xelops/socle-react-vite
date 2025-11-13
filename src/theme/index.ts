@@ -1,40 +1,19 @@
-/**
- * Theme Configuration Index
- *
- * Central export for all theme-related configurations.
- * Provides easy access to themes, tokens, and utilities.
- */
+import {extendTheme} from '@chakra-ui/react';
+import {styles} from './styles';
+import {colors} from './colors';
+import {fonts} from './fonts';
+import {space} from './space';
+import {radii} from './radii';
+import {shadows} from './shadows';
 
-// Export themes
-export { lightTheme } from './lightTheme';
-export { darkTheme } from './darkTheme';
+const theme = extendTheme({
+    styles,
+    colors,
+    fonts,
+    space,
+    radii,
+    shadows,
+});
 
-// Export typography configuration
-export { typographyConfig } from './typography';
-
-// Export tokens
-export {
-  colors,
-  spacing,
-  typography,
-  borderRadius,
-  shadows,
-  transitions,
-  breakpoints,
-  zIndex,
-} from './tokens';
-
-// Export types
-export type { Theme } from '@mui/material/styles';
-
-// Theme utilities
-export const getTheme = (mode: 'light' | 'dark') => {
-  const { lightTheme } = require('./lightTheme');
-  const { darkTheme } = require('./darkTheme');
-  return mode === 'light' ? lightTheme : darkTheme;
-};
-
-// Default export
-import { lightTheme } from './lightTheme';
-export default lightTheme;
+export default theme;
 

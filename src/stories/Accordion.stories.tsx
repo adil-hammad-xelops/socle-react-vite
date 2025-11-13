@@ -1,65 +1,204 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {Accordion} from 'components/data-display';
-import {Typography} from '@mui/material';
+import {Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel} from '../components/ui';
+import {Box} from '@chakra-ui/react';
 
-const meta = {
-    title: 'Data Display/Accordion',
+const meta: Meta<typeof Accordion> = {
+    title: 'UI/Accordion',
     component: Accordion,
     parameters: {
-        layout: 'padded',
+        layout: 'centered',
+        docs: {
+            description: {
+                component: 'An accordion component built with Chakra UI for collapsible content sections.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
-        defaultExpanded: {
-            control: 'boolean',
+        allowMultiple: {
+            control: {type: 'boolean'},
+            description: 'Allow multiple items to be expanded at once',
+        },
+        allowToggle: {
+            control: {type: 'boolean'},
+            description: 'Allow items to be toggled',
+        },
+        defaultIndex: {
+            control: {type: 'number'},
+            description: 'Default expanded item index',
+        },
+        variant: {
+            control: {type: 'select'},
+            options: ['outline', 'filled', 'unstyled'],
         },
     },
-} satisfies Meta<typeof Accordion>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: {
-        title: 'Accordion Title',
-        children: <Typography>This is the accordion content that can be expanded and collapsed.</Typography>,
-    },
+    render: () => (
+        <Accordion defaultIndex={[0]} allowMultiple width="400px">
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Section 1 title
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.
+                </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Section 2 title
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    nisi ut aliquip ex ea commodo consequat.
+                </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+    ),
 };
 
-export const Expanded: Story = {
-    args: {
-        title: 'Expanded by Default',
-        defaultExpanded: true,
-        children: <Typography>This accordion is expanded by default.</Typography>,
-    },
-};
+export const SingleAllowed: Story = {
+    render: () => (
+        <Accordion allowToggle width="400px">
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Click to expand
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Only one item can be open at a time.
+                </AccordionPanel>
+            </AccordionItem>
 
-export const WithRichContent: Story = {
-    args: {
-        title: 'Features',
-        children: (
-            <div>
-                <Typography paragraph>This accordion contains rich content:</Typography>
-                <ul>
-                    <li>Feature 1: Advanced analytics</li>
-                    <li>Feature 2: Real-time updates</li>
-                    <li>Feature 3: Cloud storage</li>
-                    <li>Feature 4: Team collaboration</li>
-                </ul>
-            </div>
-        ),
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Another section
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Opening this will close the previous one.
+                </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+    ),
+    parameters: {
+        controls: {disable: true},
     },
 };
 
 export const FAQ: Story = {
-    args: {
-        title: 'How do I reset my password?',
-        children: (
-            <Typography>
-                To reset your password, go to the login page and click "Forgot Password".
-                You'll receive an email with instructions to create a new password.
-            </Typography>
-        ),
+    render: () => (
+        <Accordion defaultIndex={[0]} allowMultiple width="500px">
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left" fontWeight="medium">
+                            How do I change my password?
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    You can change your password by going to Settings → Security → Change Password.
+                    Make sure to use a strong password with at least 8 characters.
+                </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left" fontWeight="medium">
+                            Can I cancel my subscription?
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Yes, you can cancel your subscription at any time from your account dashboard.
+                    Your access will remain active until the end of your current billing period.
+                </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left" fontWeight="medium">
+                            Is my data secure?
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    We take data security seriously. All data is encrypted in transit and at rest,
+                    and we follow industry best practices for data protection.
+                </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+    ),
+    parameters: {
+        controls: {disable: true},
     },
 };
 
+export const Interactive: Story = {
+    args: {
+        allowMultiple: true,
+        allowToggle: true,
+        defaultIndex: 0,
+    },
+    render: (args) => (
+        <Accordion {...args} width="400px">
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Interactive Section 1
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    This accordion section can be controlled using the controls panel.
+                </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                            Interactive Section 2
+                        </Box>
+                        <AccordionIcon/>
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    Experiment with the allowMultiple and allowToggle properties.
+                </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+    ),
+};

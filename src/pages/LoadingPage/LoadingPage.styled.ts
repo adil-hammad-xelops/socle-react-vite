@@ -5,7 +5,7 @@ export const LoadingWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${({theme}) => theme?.palette?.background?.default || '#ffffff'};
+    background-color: #ffffff;
 `;
 
 export const LoadingContainer = styled.div`
@@ -34,7 +34,7 @@ export const LoadingDot = styled.div<{ $delay: number }>`
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background-color: ${({theme}) => theme?.palette?.primary?.main || '#1976d2'};
+    background-color: #3182ce;
     animation: ${bounce} 1.4s infinite ease-in-out both;
     animation-delay: ${({$delay}) => $delay}s;
 `;

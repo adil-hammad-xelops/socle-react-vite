@@ -1,24 +1,24 @@
-import {StrictMode} from 'react'
-import {createRoot} from 'react-dom/client'
-import {Provider} from 'react-redux'
-import store from 'services/store'
-import {ThemeProvider} from 'theme/ThemeContext'
-import AuthProvider from './providers/auth-provider/AuthProvider'
-import App from './App'
-import './index.css'
-import {CssBaseline} from "@mui/material";
-import {GlobalStyle} from "./GlobalStyle.ts";
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import {Provider} from 'react-redux';
+import store from 'services/store';
+import AuthProvider from './providers/auth-provider/AuthProvider';
+import App from './App';
+import './index.css';
+import {ChakraProvider} from '@chakra-ui/react';
+import theme from './theme';
+import {ThemeProvider} from 'styled-components';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ThemeProvider>
-            <CssBaseline/>
-            <Provider store={store}>
-                <AuthProvider>
-                    <App/>
-                </AuthProvider>
-            </Provider>
-            <GlobalStyle/>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ChakraProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                    <AuthProvider>
+                        <App/>
+                    </AuthProvider>
+                </ThemeProvider>
+            </ChakraProvider>
+        </Provider>
     </StrictMode>,
 );

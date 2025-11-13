@@ -1,114 +1,178 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {Select} from 'components/forms';
-import {SelectProps} from "components/forms/Select";
+import {Select} from '../components/ui';
+import {Stack} from '@chakra-ui/react';
 
-const meta: Meta<SelectProps> = {
-    title: 'Forms/Select',
+const meta: Meta<typeof Select> = {
+    title: 'UI/Select',
     component: Select,
     parameters: {
         layout: 'padded',
+        docs: {
+            description: {
+                component: 'A select dropdown component built with Chakra UI for choosing from multiple options.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
         size: {
             control: 'select',
-            options: ['small', 'medium'],
+            options: ['xs', 'sm', 'md', 'lg'],
         },
-        fullWidth: {
-            control: 'boolean',
-        },
-        multiple: {
-            control: 'boolean',
+        variant: {
+            control: 'select',
+            options: ['outline', 'filled', 'flushed', 'unstyled'],
         },
         placeholder: {
+            control: 'text',
+        },
+        isDisabled: {
+            control: 'boolean',
+        },
+        isInvalid: {
+            control: 'boolean',
+        },
+        focusBorderColor: {
+            control: 'text',
+        },
+        errorBorderColor: {
             control: 'text',
         },
     },
 };
 
 export default meta;
-type Story = StoryObj<SelectProps>;
+type Story = StoryObj<typeof meta>;
 
-// Default single select
 export const Default: Story = {
     args: {
-        label: 'Choose Option',
-        options: [
-            {label: 'Option 1', value: '1'},
-            {label: 'Option 2', value: '2'},
-            {label: 'Option 3', value: '3'},
-        ],
+        placeholder: 'Select option',
+        children: (
+            <>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </>
+        ),
     },
 };
 
-// Single select with default value
-export const WithDefaultValue: Story = {
-    args: {
-        label: 'Language',
-        value: 'en',
-        options: [
-            {label: 'English', value: 'en'},
-            {label: 'Spanish', value: 'es'},
-            {label: 'French', value: 'fr'},
-        ],
-    },
+export const Sizes: Story = {
+    render: () => (
+        <Stack spacing={4} width="300px">
+            <Select placeholder="Extra small select" size="xs">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Small select" size="sm">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Medium select" size="md">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Large select" size="lg">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+        </Stack>
+    ),
 };
 
-// Multi-select example
-export const MultiSelect: Story = {
-    args: {
-        label: 'Select Interests',
-        multiple: true,
-        value: ['books', 'sports'],
-        options: [
-            {label: 'Electronics', value: 'electronics'},
-            {label: 'Clothing', value: 'clothing'},
-            {label: 'Books', value: 'books'},
-            {label: 'Sports', value: 'sports'},
-            {label: 'Home & Garden', value: 'home'},
-        ],
-    },
+export const Variants: Story = {
+    render: () => (
+        <Stack spacing={4} width="300px">
+            <Select placeholder="Outline variant" variant="outline">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Filled variant" variant="filled">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Flushed variant" variant="flushed">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Unstyled variant" variant="unstyled">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+        </Stack>
+    ),
 };
 
-// Select with placeholder
-export const WithPlaceholder: Story = {
-    args: {
-        label: 'Select Country',
-        placeholder: 'Please select a country',
-        options: [
-            {label: 'United States', value: 'us'},
-            {label: 'United Kingdom', value: 'uk'},
-            {label: 'Canada', value: 'ca'},
-            {label: 'Australia', value: 'au'},
-        ],
-    },
+export const States: Story = {
+    render: () => (
+        <Stack spacing={4} width="300px">
+            <Select placeholder="Normal select">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Focused select" focusBorderColor="blue.400">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Invalid select" isInvalid errorBorderColor="red.300">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+            <Select placeholder="Disabled select" isDisabled>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </Select>
+        </Stack>
+    ),
 };
 
-// Small size select
-export const Small: Story = {
-    args: {
-        label: 'Small Size',
-        size: 'small',
-        options: [
-            {label: 'Option 1', value: '1'},
-            {label: 'Option 2', value: '2'},
-            {label: 'Option 3', value: '3'},
-        ],
-    },
+export const WithGroups: Story = {
+    render: () => (
+        <Stack spacing={4} width="300px">
+            <Select placeholder="Choose a framework">
+                <optgroup label="Frontend">
+                    <option value="react">React</option>
+                    <option value="vue">Vue</option>
+                    <option value="angular">Angular</option>
+                </optgroup>
+                <optgroup label="Backend">
+                    <option value="node">Node.js</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                </optgroup>
+            </Select>
+        </Stack>
+    ),
 };
 
-// Many options example
-export const ManyOptions: Story = {
+export const Preselected: Story = {
+    render: () => (
+        <Stack spacing={4} width="300px">
+            <Select defaultValue="option2">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2 (Default)</option>
+                <option value="option3">Option 3</option>
+            </Select>
+        </Stack>
+    ),
+};
+
+export const Interactive: Story = {
     args: {
-        label: 'Select Category',
-        options: [
-            {label: 'Electronics', value: 'electronics'},
-            {label: 'Clothing', value: 'clothing'},
-            {label: 'Books', value: 'books'},
-            {label: 'Sports', value: 'sports'},
-            {label: 'Home & Garden', value: 'home'},
-            {label: 'Toys', value: 'toys'},
-            {label: 'Food', value: 'food'},
-        ],
+        placeholder: 'Choose an option...',
+        size: 'md',
+        variant: 'outline',
+        isDisabled: false,
+        isInvalid: false,
+        focusBorderColor: 'blue.400',
+        errorBorderColor: 'red.300',
+        children: (
+            <>
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="orange">Orange</option>
+                <option value="grape">Grape</option>
+            </>
+        ),
     },
 };

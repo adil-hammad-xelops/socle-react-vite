@@ -1,24 +1,20 @@
-import {Stack, Typography} from '@mui/material';
+import {Text, VStack} from '@chakra-ui/react';
 import {LoadingContainer, LoadingDot, LoadingWrapper, SpinnerWrapper,} from './LoadingPage.styled';
 
-/**
- * Loading Page
- * Used as Suspense fallback while lazy-loaded pages are being fetched
- */
 export function LoadingPage() {
     return (
         <LoadingWrapper>
             <LoadingContainer>
-                <Stack spacing={3} alignItems="center">
+                <VStack spacing={3} align="center">
                     <SpinnerWrapper>
                         <LoadingDot $delay={0}/>
                         <LoadingDot $delay={0.2}/>
                         <LoadingDot $delay={0.4}/>
                     </SpinnerWrapper>
-                    <Typography variant="h5" color="textSecondary">
+                    <Text fontSize="xl" color="gray.500">
                         Loading...
-                    </Typography>
-                </Stack>
+                    </Text>
+                </VStack>
             </LoadingContainer>
         </LoadingWrapper>
     );

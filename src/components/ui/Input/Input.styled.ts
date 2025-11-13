@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {TextField} from '@mui/material';
+import {Input as ChakraInput} from '@chakra-ui/react';
 
-export const StyledTextField = styled(TextField)`
-    .MuiOutlinedInput-root {
-        border-radius: ${({theme}) => theme.spacing(1)};
-    }
-`;
+export const StyledInput = styled(ChakraInput)``;
 

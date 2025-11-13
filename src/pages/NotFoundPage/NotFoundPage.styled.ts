@@ -5,7 +5,7 @@ export const NotFoundWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${({theme}) => theme.palette.background.default};
+    background-color: #ffffff;
     padding: 2rem;
 `;
 
@@ -19,7 +19,7 @@ export const NotFoundCode = styled.div`
     font-size: 8rem;
     font-weight: 700;
     line-height: 1;
-    color: ${({theme}) => theme.palette.primary.main};
+    color: #3182ce;
     opacity: 0.2;
     user-select: none;
 
